@@ -13,12 +13,34 @@ public class GameController : MonoBehaviour
 	public float waveWait;
 	public Text scoreText;
 	private int score;
+	public Text restartText;
+	public Text gameOverText;
+	private bool gameOver;
+	private bool restart;
+	private AudioSource audioSource;
+	
 
 	void Start()
 	{
-		score = 0;
+		audioSource.GetComponent<AudioSource>();
+		gameOver = false; 
+		restart = false;
+		restartText.text = "";
+		gameOverText.text = "";
+		score = 0; 
 		UpdateScore();
 		StartCoroutine(SpawnWaves());
+	}
+
+	void Update()
+	{
+		if (restart)
+		{
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				SceneManager.LoadLevel(SceneManager.loadedLevel);
+			}
+		}
 	}
 	IEnumerator SpawnWaves()
 	{
@@ -33,6 +55,12 @@ public class GameController : MonoBehaviour
 				yield return new WaitForSeconds(spawnWait);
 			}
 			yield return new WaitForSeconds(waveWait);
+			if (gameOver)
+			{
+				restartText.text = "Press 'R' for restart";
+				restart = true;
+				break;
+			}
 		}
 
 	}
@@ -45,5 +73,26 @@ public class GameController : MonoBehaviour
 	{
 		scoreText.text = "Score:" + score;
 
+	}
+
+	//Source:https://forum.unity.com/threads/mute-and-unmute.504438/
+	void MusicPlayer()
+	{
+		if (Input.GetButton("m") && audioSource.isPlaying)
+		{
+			audioSource.Pause();
+
+		}
+
+		else if (Input.GetButton("m"))
+		{
+			audioSource.Play();
+
+		}
+	}
+	public void GameOver()
+	{
+		gameOverText.text = "Game Over";
+		gameOver = true;
 	}
 }
