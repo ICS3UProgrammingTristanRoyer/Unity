@@ -7,11 +7,14 @@ using UnityEngine;
 [System.Serializable]
 public class Boundary
 {
+
+	// creates the barriers for the boundary.
 	public float xMin, xMax, zMin, zMax;
 }
 
 public class PlayerController : MonoBehaviour
 {
+	// declare variables
 	public float speed;
 	public float tilt;
 	public Boundary boundary;
@@ -20,8 +23,9 @@ public class PlayerController : MonoBehaviour
 	public float fireRate;
 	private float nextFire;
 	private AudioSource audioSource;
-
 	private Rigidbody rb;
+
+	// Creates a function that allows the player to shoot laser projectiles that make a sound
 	void Update ()
 	{
 		if (Input.GetButton("Jump") && Time.time > nextFire)
@@ -34,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
 	}
 
+	// assigns values to  variables
 void Start()
 {
 	rb = GetComponent<Rigidbody>();
@@ -62,5 +67,6 @@ void FixedUpdate ()
 		);
 		rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
 	}
+	
 	
 }
