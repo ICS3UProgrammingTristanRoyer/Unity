@@ -49,14 +49,14 @@ public class GameController : MonoBehaviour
 	    // creates a mute and un-mute feature for the background music 
 		//Source:https://forum.unity.com/threads/mute-and-unmute.504438/
 		
-			if (Input.GetButton("Cancel") && audioS.isPlaying)
+			if (Input.GetButton("Fire1") && audioS.isPlaying)
 			{
 
 				audioS.Pause();
 
 			}
 
-			else if (Input.GetButton("Cancel"))
+			else if (Input.GetButton("Fire1"))
 			{
 				
 
